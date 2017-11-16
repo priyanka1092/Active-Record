@@ -36,11 +36,7 @@ class dbConn
     }
 }
 class collection {
-    static public function create()
-    {
-      $model = new static::$modelName;
-      return $model;
-    }
+
     static public function findAll()
     {
         $db = dbConn::getConnection();
@@ -127,18 +123,18 @@ class todos extends collection
        }
 }
 
-$records = accounts::findAll();
+//$records = accounts::findAll();
 
-$records = todos::findAll();
+//$records = todos::findAll();
 
-$record = todos::findOne(1);
+$record = todos::findOne(3);
 
-$record = new todo();
-$record->message = 'some task';
-$record->isdone = 0;
+//$record = new todo();
+//$record->message = 'some task';
+//$record->isdone = 0;
 
 print_r($record);
-$record = todos::create();
-print_r($record);
+//$record = todos::create();
+//print_r($record);
 
 ?>
