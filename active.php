@@ -86,7 +86,7 @@ class model {
         $array = get_object_vars($this);
         $columnString = implode(',', $array);
         $valueString = ":".implode(',:', $array);
-        // echo "INSERT INTO $tableName (" . $columnString . ") VALUES (" .$valueString . ")</br>";
+        //echo "INSERT INTO $tableName (" . $columnString . ") VALUES (" .$valueString . ")</br>";
         echo 'I just saved record: ' . $this->id;
     }
 
@@ -204,9 +204,9 @@ $obj = new main();
 
         $record = new todo();
         $record->id='';
-        $record->owneremail="aa";
-        $record->ownerid="aa";
-        $record->createddate="aa";
+        $record->owneremail="abc10@gmail.com";
+        $record->ownerid="999";
+        $record->createddate="";
         $record->duedate="";
         $record->message="";
         $record->isdone='';
