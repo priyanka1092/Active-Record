@@ -47,7 +47,7 @@ class collection {
         $class = static::$modelName;
         $statement->setFetchMode(PDO::FETCH_CLASS, $class);
         $recordsSet =  $statement->fetchAll();
-        echo " Print full table: " .$tableName;
+        echo " Display the entire table- " .$tableName;
         return $recordsSet;
     }
     static public function findOne($id) {
@@ -59,7 +59,7 @@ class collection {
         $class = static::$modelName;
         $statement->setFetchMode(PDO::FETCH_CLASS, $class);
         $recordsSet =  $statement->fetchAll();
-        echo "Print one record: ". $tableName;
+        echo "Display one record- ". $tableName;
         return $recordsSet;
     }
 }
@@ -73,7 +73,7 @@ class model {
     //protected $id;
     public function save()
     {
-        echo "a". $this->id;
+        echo "a" . $this->id;
         if ($this->id == '') {
             $sql = $this->insert();
         } else {
@@ -99,7 +99,6 @@ class model {
         $valueString = ':'.implode(',:', array_flip($array));
         $sql =  'INSERT INTO '.$tableName.' ('.$columnString.') VALUES ('.$valueString.')';
         echo $sql;
-
         return $sql;
     }
     private function update() {
@@ -193,7 +192,7 @@ $obj = new main();
         $records = todos::findAll();
         $tableGen = htmlTable::genarateTable($records);
 
-        $id=5;
+        $id=4;
         $records = todos::findOne($id);
         $tableGen = htmlTable::genarateTable($records);
 
@@ -205,12 +204,13 @@ $obj = new main();
         $record = new todo();
         $record->id='';
         $record->owneremail="abc10@gmail.com";
-        $record->ownerid="999";
-        $record->createddate="";
-        $record->duedate="";
-        $record->message="";
-        $record->isdone='';
+        $record->ownerid="9";
+        $record->createddate="2017-11-15";
+        $record->duedate="2017-12-20";
+        $record->message="inseting test";
+        $record->isdone="1";
         $record->save();
+
         $records = todos::findAll();
         $tableGen = htmlTable::genarateTable($records);
 
