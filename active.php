@@ -18,13 +18,13 @@ class dbConn{
             self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }
         catch (PDOException $e) {
-            //Output error - would normally log this to error file rather than output to user.
+
             echo "Connection Error: " . $e->getMessage();
         }
     }
-    // get connection function. Static method - accessible without instantiation
+
     public static function getConnection() {
-        //Guarantees single instance, if no connection object exists then create one.
+
         if (!self::$db) {
             //new connection object.
             new dbConn();
@@ -63,22 +63,33 @@ class collection {
         return $recordsSet;
     }
 }
-class accounts extends collection {
+
+    class accounts extends collection
+
+    {
+
     protected static $modelName = 'account';
-}
-class todos extends collection {
+
+    }
+
+    class todos extends collection
+    {
+
     protected static $modelName = 'todo';
-}
-class model {
+
+    }
+
+    class model {
     //protected $id;
     public function save()
-    {
-        echo "a" . $this->id;
+        {
         if ($this->id == '') {
             $sql = $this->insert();
-        } else {
+        } else
+            {
+
             $sql = $this->update();
-        }
+            }
         $db = dbConn::getConnection();
         $statement = $db->prepare($sql);
         $statement->execute();
@@ -86,7 +97,6 @@ class model {
         $array = get_object_vars($this);
         $columnString = implode(',', $array);
         $valueString = ":".implode(',:', $array);
-        //echo "INSERT INTO $tableName (" . $columnString . ") VALUES (" .$valueString . ")</br>";
         echo 'I just saved record: ' . $this->id;
     }
 
@@ -95,8 +105,10 @@ class model {
         $modelName=static::$modelName;
         $tableName = $modelName::getTablename();
         $array = get_object_vars($this);
-        $columnString = implode(',', array_flip($array));
-        $valueString = ':'.implode(',:', array_flip($array));
+        array_pop($array);
+        $colStr = array_keys($array);
+        $columnString = implode(',', $colStr);
+        $valueString = "'".implode("','", $array)."'";
         $sql =  'INSERT INTO '.$tableName.' ('.$columnString.') VALUES ('.$valueString.')';
         echo $sql;
         return $sql;
@@ -161,6 +173,7 @@ class todo extends model {
 }
 
 class htmlTable{
+    //displaying in a table
     public function genarateTable($record){
         $tableGen = '<table border="1" cellpadding="2" cellspacing="3">';
 
@@ -196,9 +209,6 @@ $obj = new main();
         $records = todos::findOne($id);
         $tableGen = htmlTable::genarateTable($records);
 
-        $records = accounts::findAll();
-        $tableGen = htmlTable::genarateTable($records);
-
         //inserting a record
 
         $record = new todo();
@@ -218,7 +228,7 @@ $obj = new main();
 
 
         $record = new todo();
-        $record->id=5;
+        $record->id=8;
         $record->owneremail="pb435@njit.edu";
         $record->message="update";
         $record->save();
@@ -230,7 +240,7 @@ $obj = new main();
         //Deleting a record
 
         $record= new todo();
-        $record->id=5;
+        $record->id=12;
         $record->delete();
 
 
